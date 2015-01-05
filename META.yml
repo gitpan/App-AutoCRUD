@@ -61,4 +61,4 @@ resources:
   homepage: https://metacpan.org/author/DAMI
   license: http://www.perlfoundation.org/artistic_license_2_0
   repository: git://github.com/damil/App-AutoCRUD.git
-version: '0.06'
+version: '0.07'
