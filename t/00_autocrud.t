@@ -61,7 +61,7 @@ test_psgi $app, sub {
 
   # search form (POST)
   $res = $cb->(POST "/Chinook/table/MediaType/search");
-  is $res->code, 302,                                "redirecting POST search";
+  is $res->code, 303,                                "redirecting POST search";
   like $res->header('location'), qr/^list\?/,        "redirecting to 'list'";
 
   # list
@@ -74,10 +74,13 @@ test_psgi $app, sub {
   like $res->content, qr(records 1 - 2),             "found 2 records";
   like $res->content, qr(Protected MPEG),            "found Protected MPEG";
 
+  # id
+  $res = $cb->(GET "/Chinook/table/Album/id/1");
+  like $res->content, qr(Album/update[^"]*">),       "update link";
+
   # TODO : test list outputs as xlsx, yaml, json, xml
 
   # TODO : test descr, update, insert, delete
-
 };
 
 # signal end of tests

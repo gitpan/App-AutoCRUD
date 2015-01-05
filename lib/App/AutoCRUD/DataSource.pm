@@ -9,7 +9,7 @@ use DBI;
 use Clone           qw/clone/;
 use List::MoreUtils qw/part/;
 use Scalar::Does    qw/does/;
-use SQL::Abstract::FromQuery;
+use SQL::Abstract::FromQuery 0.05;
 
 use namespace::clean -except => 'meta';
 
@@ -97,7 +97,12 @@ sub _schema {
 
     if (! $self->app->is_class_loaded($schema_class)) {
       # build a schema generator from the DBI connection
+
+      my $dbh = $self->dbh;
+
       require DBIx::DataModel::Schema::Generator;
+
+
       my $generator = DBIx::DataModel::Schema::Generator->new(
         -schema => $schema_class,
        );
